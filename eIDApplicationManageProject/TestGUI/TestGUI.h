@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HDIFD20B.h"
+#include "ExternAPI.h"
 
 namespace TestGUI {
 
@@ -92,6 +93,7 @@ namespace TestGUI {
 			this->Controls->Add(this->btnCallExternAPI);
 			this->Controls->Add(this->btnCallHDIFD20B);
 			this->Name = L"Form1";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"²âÊÔ³ÌÐò";
 			this->ResumeLayout(false);
 
