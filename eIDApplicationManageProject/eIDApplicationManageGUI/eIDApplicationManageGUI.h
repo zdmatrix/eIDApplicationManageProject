@@ -66,10 +66,13 @@ namespace eIDApplicationManageGUI {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^  >(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Form1";
 			this->Text = L"eID应用管理程序";
+			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
+	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
+			 }
 	};
 }
 
