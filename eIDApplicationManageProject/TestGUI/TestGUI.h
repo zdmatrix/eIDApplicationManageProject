@@ -43,6 +43,8 @@ namespace TestGUI {
 			}
 		}
 	private: System::Windows::Forms::Button^  btnCallHDIFD20B;
+	private: System::Windows::Forms::Button^  btnCallExternAPI;
+
 	protected: 
 
 	private:
@@ -59,6 +61,7 @@ namespace TestGUI {
 		void InitializeComponent(void)
 		{
 			this->btnCallHDIFD20B = (gcnew System::Windows::Forms::Button());
+			this->btnCallExternAPI = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// btnCallHDIFD20B
@@ -71,11 +74,22 @@ namespace TestGUI {
 			this->btnCallHDIFD20B->UseVisualStyleBackColor = true;
 			this->btnCallHDIFD20B->Click += gcnew System::EventHandler(this, &Form1::btnCallHDIFD20B_Click);
 			// 
+			// btnCallExternAPI
+			// 
+			this->btnCallExternAPI->Location = System::Drawing::Point(13, 43);
+			this->btnCallExternAPI->Name = L"btnCallExternAPI";
+			this->btnCallExternAPI->Size = System::Drawing::Size(133, 22);
+			this->btnCallExternAPI->TabIndex = 1;
+			this->btnCallExternAPI->Text = L"µ˜”√ExternAPI.dll";
+			this->btnCallExternAPI->UseVisualStyleBackColor = true;
+			this->btnCallExternAPI->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(292, 266);
+			this->Controls->Add(this->btnCallExternAPI);
 			this->Controls->Add(this->btnCallHDIFD20B);
 			this->Name = L"Form1";
 			this->Text = L"≤‚ ‘≥Ã–Ú";
@@ -88,6 +102,16 @@ namespace TestGUI {
 				 DWORD ret = 0;
 				 ret = HD_OpenPort(21, 9600, 8, &hReader);
 				 if(ret == 0x9000){
+					 MessageBox::Show("OpenPort done!");
+				 }else{
+					 MessageBox::Show("OpenPort failed!");
+				 }
+			 }
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+				 HANDLE hReader;
+				 DWORD ret = 0;
+				 ret = UKeyOpen(&hReader);
+				 if(ret){
 					 MessageBox::Show("OpenPort done!");
 				 }else{
 					 MessageBox::Show("OpenPort failed!");
