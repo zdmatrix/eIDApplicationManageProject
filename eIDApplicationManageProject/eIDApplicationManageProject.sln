@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eIDApplicationManageGUI", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HDIFD20B", "HDIFD20B\HDIFD20B.vcproj", "{9A63CE41-03AE-48E7-AD69-07435090064D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGUI", "TestGUI\TestGUI.vcproj", "{DA9DF079-1E87-43AF-968F-B21694A60B5B}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -23,6 +25,10 @@ Global
 		{9A63CE41-03AE-48E7-AD69-07435090064D}.Debug|Win32.Build.0 = Debug|Win32
 		{9A63CE41-03AE-48E7-AD69-07435090064D}.Release|Win32.ActiveCfg = Release|Win32
 		{9A63CE41-03AE-48E7-AD69-07435090064D}.Release|Win32.Build.0 = Release|Win32
+		{DA9DF079-1E87-43AF-968F-B21694A60B5B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA9DF079-1E87-43AF-968F-B21694A60B5B}.Debug|Win32.Build.0 = Debug|Win32
+		{DA9DF079-1E87-43AF-968F-B21694A60B5B}.Release|Win32.ActiveCfg = Release|Win32
+		{DA9DF079-1E87-43AF-968F-B21694A60B5B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
