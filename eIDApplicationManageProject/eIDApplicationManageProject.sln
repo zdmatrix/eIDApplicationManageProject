@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGUI", "TestGUI\TestGUI.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "USBHidDll", "USBHidDll\USBHidDll.vcproj", "{6951EE80-CA56-4B70-9DC0-F7473931986C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExternAPI", "ExternAPI\ExternAPI.vcproj", "{33244FDC-BF7C-4481-BF45-9F8EAB665346}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -35,6 +37,10 @@ Global
 		{6951EE80-CA56-4B70-9DC0-F7473931986C}.Debug|Win32.Build.0 = Debug|Win32
 		{6951EE80-CA56-4B70-9DC0-F7473931986C}.Release|Win32.ActiveCfg = Release|Win32
 		{6951EE80-CA56-4B70-9DC0-F7473931986C}.Release|Win32.Build.0 = Release|Win32
+		{33244FDC-BF7C-4481-BF45-9F8EAB665346}.Debug|Win32.ActiveCfg = Debug|Win32
+		{33244FDC-BF7C-4481-BF45-9F8EAB665346}.Debug|Win32.Build.0 = Debug|Win32
+		{33244FDC-BF7C-4481-BF45-9F8EAB665346}.Release|Win32.ActiveCfg = Release|Win32
+		{33244FDC-BF7C-4481-BF45-9F8EAB665346}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
