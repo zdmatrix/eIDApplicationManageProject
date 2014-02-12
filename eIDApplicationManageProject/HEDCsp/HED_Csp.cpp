@@ -4,6 +4,7 @@
 //#define DEBUG_FILE_OPP
 #include "wincrypt.h"
 #include "shlwapi.h"
+#include "cspdk.h"
 
 
 #include "HEDCsp.h"
