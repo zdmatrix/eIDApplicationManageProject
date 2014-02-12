@@ -1,7 +1,7 @@
 // eIDApplicationManageGUI.cpp: 主项目文件。
 
 #include "stdafx.h"
-#include "eIDApplicationManageGUI.h"
+#include "MainForm.h"
 
 using namespace eIDApplicationManageGUI;
 
@@ -13,6 +13,6 @@ int main(array<System::String ^> ^args)
 	Application::SetCompatibleTextRenderingDefault(false); 
 
 	// 创建主窗口并运行它
-	Application::Run(gcnew Form1());
+	Application::Run(gcnew MainForm());
 	return 0;
 }
