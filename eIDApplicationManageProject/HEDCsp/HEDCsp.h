@@ -53,6 +53,8 @@ typedef struct _VTableProvStrucW {
     LPWSTR               pszProvName;
 } VTableProvStrucW,     *PVTableProvStrucW;
 
+
+
 typedef struct {
     DWORD dwVersion;
     DWORD dwCrcOffset;
