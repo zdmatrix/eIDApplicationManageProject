@@ -66,6 +66,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="HDIFD20B.lib shlwapi.lib libeay32.lib"
 				LinkIncremental="2"
+				ModuleDefinitionFile="ExternAPI.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -139,6 +140,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				ModuleDefinitionFile="ExternAPI.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -181,6 +183,10 @@
 			>
 			<File
 				RelativePath=".\ExternAPI.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ExternAPI.def"
 				>
 			</File>
 			<File
