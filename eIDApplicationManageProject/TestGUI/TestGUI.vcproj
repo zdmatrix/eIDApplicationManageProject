@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HDIFD20B.lib ExternAPI.lib"
+				AdditionalDependencies="HDIFD20B.lib ExternAPI.lib HEDCsp.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -239,6 +239,10 @@
 			</File>
 			<File
 				RelativePath=".\HDIFD20B.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HEDCsp.h"
 				>
 			</File>
 			<File

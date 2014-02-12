@@ -3,6 +3,8 @@
 #include "HDIFD20B.h"
 #include "ExternAPI.h"
 
+#include "HEDCsp.h"
+
 namespace TestGUI {
 
 	using namespace System;
@@ -45,6 +47,7 @@ namespace TestGUI {
 		}
 	private: System::Windows::Forms::Button^  btnCallHDIFD20B;
 	private: System::Windows::Forms::Button^  btnCallExternAPI;
+	private: System::Windows::Forms::Button^  btnCallHedCsp;
 
 	protected: 
 
@@ -63,6 +66,7 @@ namespace TestGUI {
 		{
 			this->btnCallHDIFD20B = (gcnew System::Windows::Forms::Button());
 			this->btnCallExternAPI = (gcnew System::Windows::Forms::Button());
+			this->btnCallHedCsp = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// btnCallHDIFD20B
@@ -85,11 +89,22 @@ namespace TestGUI {
 			this->btnCallExternAPI->UseVisualStyleBackColor = true;
 			this->btnCallExternAPI->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
 			// 
+			// btnCallHedCsp
+			// 
+			this->btnCallHedCsp->Location = System::Drawing::Point(13, 72);
+			this->btnCallHedCsp->Name = L"btnCallHedCsp";
+			this->btnCallHedCsp->Size = System::Drawing::Size(133, 24);
+			this->btnCallHedCsp->TabIndex = 2;
+			this->btnCallHedCsp->Text = L"µ÷ÓÃHEDCsp.dll";
+			this->btnCallHedCsp->UseVisualStyleBackColor = true;
+			this->btnCallHedCsp->Click += gcnew System::EventHandler(this, &Form1::btnCallHedCsp_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(292, 266);
+			this->Controls->Add(this->btnCallHedCsp);
 			this->Controls->Add(this->btnCallExternAPI);
 			this->Controls->Add(this->btnCallHDIFD20B);
 			this->Name = L"Form1";
@@ -119,6 +134,47 @@ namespace TestGUI {
 					 MessageBox::Show("OpenPort failed!");
 				 }
 			 }
-	};
+	private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {
+				 HCRYPTPROV hProv;
+    HCRYPTKEY hKey;
+    DWORD dwParam;
+//    BYTE *pbData;
+    DWORD dwFlags;
+
+	PVTableProvStruc pVTable;
+
+		LPDWORD dwret = (DWORD*)malloc(sizeof(DWORD));
+		LPBYTE pbDate;
+		
+		pbDate = (BYTE*)malloc(sizeof(BYTE) * 255);
+	hProv = (HCRYPTPROV)malloc(sizeof(HCRYPTPROV));
+	hKey = (HCRYPTKEY)malloc(sizeof(HCRYPTKEY));
+	dwParam = KP_KEYLEN;
+//	pbData = (BYTE*)malloc(sizeof(BYTE));
+	dwFlags = 0x31;
+	pVTable = (PVTableProvStruc)malloc(sizeof(PVTableProvStruc));
+
+	
+
+	
+//	CPGetKeyParam1(hProv, hKey, dwParam, pbDate, dwret, dwFlags);
+//	CPSetKeyParam1(hProv, hKey, KP_SALT, pbDate, dwFlags);
+	if(!CPAcquireContext1(
+		&hProv, 
+		NULL, 
+		0,
+		NULL
+		))
+	{
+		CPAcquireContext1(
+		&hProv, 
+		NULL, 
+		CRYPT_NEWKEYSET,
+		NULL
+		);
+//		printf("Hello World!\n");
+	}
+			 }
+};
 }
 
