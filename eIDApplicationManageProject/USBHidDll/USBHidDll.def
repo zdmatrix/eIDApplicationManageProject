@@ -1,0 +1,8 @@
+LIBRARY	"USBHidDll"
+
+EXPORTS
+	bInitWriteHandle			@120
+	bInitReadHandle				@121
+	bWrite_ToHIDDevice			@122
+	dwRead_FromHIDDevice        @123
+	bOpenHidDevice				@124
