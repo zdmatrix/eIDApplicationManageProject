@@ -66,6 +66,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="winscard.lib shlwapi.lib"
 				LinkIncremental="2"
+				ModuleDefinitionFile="HDIFD20B.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -139,6 +140,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				ModuleDefinitionFile="HDIFD20B.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -181,6 +183,10 @@
 			>
 			<File
 				RelativePath=".\HDIFD20B.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\HDIFD20B.def"
 				>
 			</File>
 			<File
