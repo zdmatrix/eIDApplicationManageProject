@@ -25,6 +25,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="2"
+			UseOfATL="0"
 			CharacterSet="2"
 			ManagedExtensions="1"
 			>
@@ -66,8 +67,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HEDCsp.lib"
+				AdditionalDependencies="HED_Csp.lib"
 				LinkIncremental="2"
+				ModuleDefinitionFile="CspToSign.def"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
@@ -142,6 +144,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				ModuleDefinitionFile="CspToSign.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -195,6 +198,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CspToSign.def"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -230,10 +237,6 @@
 			</File>
 			<File
 				RelativePath=".\HEDCsp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Resource.h"
 				>
 			</File>
 			<File
