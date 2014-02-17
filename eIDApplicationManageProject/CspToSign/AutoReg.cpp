@@ -312,7 +312,7 @@ DllRegisterServer(
     //
     // Install the trivial registry values.
     //
-
+	
     nStatus = RegSetValueEx(
                     hMyCsp,
                     TEXT("Image Path"),
