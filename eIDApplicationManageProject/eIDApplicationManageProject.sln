@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HEDCsp", "HEDCsp\HEDCsp.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CspToSign", "CspToSign\CspToSign.vcproj", "{BE80D4E5-B72A-4CA6-A748-528FFEA7242D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HED_Csp", "HED_Csp\HED_Csp.vcproj", "{8F7BB88A-27BD-4BFF-9579-19738109F1F1}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -53,6 +55,10 @@ Global
 		{BE80D4E5-B72A-4CA6-A748-528FFEA7242D}.Debug|Win32.Build.0 = Debug|Win32
 		{BE80D4E5-B72A-4CA6-A748-528FFEA7242D}.Release|Win32.ActiveCfg = Release|Win32
 		{BE80D4E5-B72A-4CA6-A748-528FFEA7242D}.Release|Win32.Build.0 = Release|Win32
+		{8F7BB88A-27BD-4BFF-9579-19738109F1F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F7BB88A-27BD-4BFF-9579-19738109F1F1}.Debug|Win32.Build.0 = Debug|Win32
+		{8F7BB88A-27BD-4BFF-9579-19738109F1F1}.Release|Win32.ActiveCfg = Release|Win32
+		{8F7BB88A-27BD-4BFF-9579-19738109F1F1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
