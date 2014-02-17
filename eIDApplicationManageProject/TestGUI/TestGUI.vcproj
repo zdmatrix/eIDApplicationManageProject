@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HDIFD20B.lib ExternAPI.lib HEDCsp.lib"
+				AdditionalDependencies="HDIFD20B.lib ExternAPI.lib HEDCsp.lib CspToSign.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -233,6 +233,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\cspdk.h"
+				>
+			</File>
 			<File
 				RelativePath=".\ExternAPI.h"
 				>

@@ -3,7 +3,9 @@
 #include "HDIFD20B.h"
 #include "ExternAPI.h"
 
-#include "HEDCsp.h"
+//#include "HEDCsp.h"
+
+#include "cspdk.h"
 
 namespace TestGUI {
 
@@ -48,6 +50,7 @@ namespace TestGUI {
 	private: System::Windows::Forms::Button^  btnCallHDIFD20B;
 	private: System::Windows::Forms::Button^  btnCallExternAPI;
 	private: System::Windows::Forms::Button^  btnCallHedCsp;
+	private: System::Windows::Forms::Button^  btnCallCspToSign;
 
 	protected: 
 
@@ -67,6 +70,7 @@ namespace TestGUI {
 			this->btnCallHDIFD20B = (gcnew System::Windows::Forms::Button());
 			this->btnCallExternAPI = (gcnew System::Windows::Forms::Button());
 			this->btnCallHedCsp = (gcnew System::Windows::Forms::Button());
+			this->btnCallCspToSign = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// btnCallHDIFD20B
@@ -99,11 +103,22 @@ namespace TestGUI {
 			this->btnCallHedCsp->UseVisualStyleBackColor = true;
 			this->btnCallHedCsp->Click += gcnew System::EventHandler(this, &Form1::btnCallHedCsp_Click);
 			// 
+			// btnCallCspToSign
+			// 
+			this->btnCallCspToSign->Location = System::Drawing::Point(13, 103);
+			this->btnCallCspToSign->Name = L"btnCallCspToSign";
+			this->btnCallCspToSign->Size = System::Drawing::Size(133, 23);
+			this->btnCallCspToSign->TabIndex = 3;
+			this->btnCallCspToSign->Text = L"µ÷ÓÃCspToSign.dll";
+			this->btnCallCspToSign->UseVisualStyleBackColor = true;
+			this->btnCallCspToSign->Click += gcnew System::EventHandler(this, &Form1::btnCallCspToSign_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(292, 266);
+			this->Controls->Add(this->btnCallCspToSign);
 			this->Controls->Add(this->btnCallHedCsp);
 			this->Controls->Add(this->btnCallExternAPI);
 			this->Controls->Add(this->btnCallHDIFD20B);
@@ -134,6 +149,8 @@ namespace TestGUI {
 					 MessageBox::Show("OpenPort failed!");
 				 }
 			 }
+			 private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {}
+			 /*
 	private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {
 				 HCRYPTPROV hProv;
     HCRYPTKEY hKey;
@@ -175,6 +192,18 @@ namespace TestGUI {
 //		printf("Hello World!\n");
 	}
 			 }
+			 */
+private: System::Void btnCallCspToSign_Click(System::Object^  sender, System::EventArgs^  e) {
+			 HCRYPTPROV hProv;
+
+			 CPAcquireContext(
+				&hProv, 
+				NULL, 
+				0,
+				NULL);
+			 MessageBox::Show("done!");
+
+		 }
 };
 }
 
