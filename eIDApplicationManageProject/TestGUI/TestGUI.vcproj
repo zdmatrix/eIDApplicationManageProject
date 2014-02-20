@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HDIFD20B.lib ExternAPI.lib HEDCsp.lib CspToSign.lib"
+				AdditionalDependencies="HDIFD20B.lib ExternAPI.lib HedCPAPI.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"

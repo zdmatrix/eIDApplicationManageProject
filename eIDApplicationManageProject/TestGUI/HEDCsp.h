@@ -5,32 +5,8 @@
 extern "C" {
 #endif
 
-//#include "wincrypt.h"
+#include "cspdk.h"
 
-
-#define CRYPT_PROVSTRUC_VERSION_V3           3
-#define CRYPT_MAX_PROVIDER_ID              999
-#define CRYPT_SIG_RESOURCE_VERSION  0x00000100
-#define CRYPT_EXTERNAL_SIGNATURE_LENGTH    136
-#define CRYPT_SIG_RESOURCE_NUMBER        0x29A
-#define CRYPT_SIG_RESOURCE        TEXT("#666")
-#define CRYPT_MAC_RESOURCE_NUMBER        0x29B
-#define CRYPT_MAC_RESOURCE        TEXT("#667")
-
-// Exponentiation Offload Reg Location
-#define EXPO_OFFLOAD_REG_VALUE "ExpoOffload"
-#define EXPO_OFFLOAD_FUNC_NAME "OffloadModExpo"
-
-typedef struct _OFFLOAD_PRIVATE_KEY
-{
-    DWORD dwVersion;		
-    DWORD cbPrime1;		
-    DWORD cbPrime2;		
-    PBYTE pbPrime1;		// "p"
-    PBYTE pbPrime2;		// "q"
-} OFFLOAD_PRIVATE_KEY, *POFFLOAD_PRIVATE_KEY;
-
-#define CUR_OFFLOAD_VERSION		1
 
 //
 // Callback prototypes
@@ -40,33 +16,6 @@ typedef BOOL (WINAPI *CRYPT_VERIFY_IMAGE_A)(LPCSTR  szImage, CONST BYTE *pbSigDa
 typedef BOOL (WINAPI *CRYPT_VERIFY_IMAGE_W)(LPCWSTR szImage, CONST BYTE *pbSigData);
 typedef void (*CRYPT_RETURN_HWND)(HWND *phWnd);
 
-
-
-
-typedef struct _VTableProvStrucW {
-    DWORD                Version;
-    CRYPT_VERIFY_IMAGE_W FuncVerifyImage;
-    CRYPT_RETURN_HWND    FuncReturnhWnd;
-    DWORD                dwProvType;
-    BYTE                *pbContextInfo;
-    DWORD                cbContextInfo;
-    LPWSTR               pszProvName;
-} VTableProvStrucW,     *PVTableProvStrucW;
-
-typedef struct _VTableProvStruc {
-    DWORD   Version;
-    FARPROC FuncVerifyImage;
-    FARPROC FuncReturnhWnd;
-	DWORD   dwProvType;
-	BYTE	*pbContextInfo;
-	DWORD	cbContextInfo;
-} VTableProvStruc, *PVTableProvStruc;
-
-typedef struct {
-    DWORD dwVersion;
-    DWORD dwCrcOffset;
-    BYTE rgbSignature[88];  // 1024-bit key, plus 2 DWORDs of padding.
-} InFileSignatureResource;
 
 
 //

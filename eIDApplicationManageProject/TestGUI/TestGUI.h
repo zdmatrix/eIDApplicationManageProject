@@ -3,9 +3,9 @@
 #include "HDIFD20B.h"
 #include "ExternAPI.h"
 
-//#include "HEDCsp.h"
+#include "HEDCsp.h"
 
-#include "cspdk.h"
+//#include "cspdk.h"
 
 namespace TestGUI {
 
@@ -99,7 +99,7 @@ namespace TestGUI {
 			this->btnCallHedCsp->Name = L"btnCallHedCsp";
 			this->btnCallHedCsp->Size = System::Drawing::Size(133, 24);
 			this->btnCallHedCsp->TabIndex = 2;
-			this->btnCallHedCsp->Text = L"调用HEDCsp.dll";
+			this->btnCallHedCsp->Text = L"调用HedCPAPI.dll";
 			this->btnCallHedCsp->UseVisualStyleBackColor = true;
 			this->btnCallHedCsp->Click += gcnew System::EventHandler(this, &Form1::btnCallHedCsp_Click);
 			// 
@@ -149,8 +149,8 @@ namespace TestGUI {
 					 MessageBox::Show("OpenPort failed!");
 				 }
 			 }
-			 private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {}
-			 /*
+//			 private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {}
+			 
 	private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {
 				 HCRYPTPROV hProv;
     HCRYPTKEY hKey;
@@ -192,8 +192,9 @@ namespace TestGUI {
 //		printf("Hello World!\n");
 	}
 			 }
-			 */
+			 
 private: System::Void btnCallCspToSign_Click(System::Object^  sender, System::EventArgs^  e) {
+/*
 			 HCRYPTPROV hProv;
 
 			 CPAcquireContext(
@@ -202,7 +203,7 @@ private: System::Void btnCallCspToSign_Click(System::Object^  sender, System::Ev
 				0,
 				NULL);
 			 MessageBox::Show("done!");
-
+*/
 		 }
 };
 }
