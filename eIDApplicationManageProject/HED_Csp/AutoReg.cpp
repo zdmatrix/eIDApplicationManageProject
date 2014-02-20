@@ -44,6 +44,8 @@ Notes:
 #include <tchar.h>
 #include "cspdk.h"
 
+#include "resource.h"
+
 
 
 
@@ -206,7 +208,7 @@ DllRegisterServer(
     OSVERSIONINFO osVer;
     LPTSTR szFileName, szFileExt;
     HINSTANCE hThisDll;
-    HRSRC hSigResource;
+    HRSRC hSigResource = NULL;
     DWORD dwStatus;
     LONG nStatus;
     BOOL fStatus;
@@ -345,10 +347,13 @@ DllRegisterServer(
     // signatures.
     //
 
+	
     hSigResource = FindResource(
                         hThisDll,
-                        MAKEINTRESOURCE(CRYPT_SIG_RESOURCE_NUMBER),
+						MAKEINTRESOURCE(CRYPT_SIG_RESOURCE_NUMBER),
                         RT_RCDATA);
+//						_T("DATA");
+							
 
 
     //
