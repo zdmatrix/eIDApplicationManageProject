@@ -1,0 +1,37 @@
+; HedCPAPI.def : Declares the module parameters for the DLL.
+
+LIBRARY      "HedCPAPI"
+
+EXPORTS
+    ; Explicit exports can go here
+
+
+CPAcquireContext1	@220
+    CPReleaseContext1	@221
+    CPGenKey1			@222
+    CPDeriveKey1		@223
+    CPDestroyKey1		@224
+    CPSetKeyParam1		@225
+    CPGetKeyParam1		@226
+    CPExportKey1		@227
+    CPImportKey1		@228
+    CPEncrypt1			@229
+    CPDecrypt1			@230
+    CPCreateHash1		@231
+    CPHashData1			@232
+    CPHashSessionKey1	@233
+    CPDestroyHash1		@234
+    CPSignHash1			@235
+    CPVerifySignature1	@236
+    CPGenRandom1		@237
+    CPGetUserKey1		@238
+    CPSetProvParam1		@239
+    CPGetProvParam1		@240
+    CPSetHashParam1		@241
+    CPGetHashParam1		@242
+	CPDuplicateHash1	@243
+	CPDuplicateKey1		@244
+	DllCanUnloadNow     PRIVATE
+	DllGetClassObject   PRIVATE
+	DllRegisterServer   PRIVATE
+	DllUnregisterServer PRIVATE

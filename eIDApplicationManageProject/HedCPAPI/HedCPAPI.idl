@@ -1,0 +1,10 @@
+// HedCPAPI.idl : type library source for HedCPAPI.dll
+// This file will be processed by the MIDL compiler to produce the
+// type library (HedCPAPI.tlb).
+
+[ uuid(6186E9D0-BF8D-414C-A380-0DF656EB136B), version(1.0) ]
+library HedCPAPI
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+};
