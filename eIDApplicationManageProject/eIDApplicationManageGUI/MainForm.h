@@ -1,7 +1,15 @@
 #pragma once
 
+#include <windows.h>
+#include <iostream>
+#include <string>
+
+#include "shlwapi.h"
+
+//#include "define.h"
 #include "USBHidDll.h"
 
+#define CSP_REGISTER_NAME "HED_RSA_Cryptographic_Service_Provider_V1.0"
 namespace eIDApplicationManageGUI {
 
 	using namespace System;
@@ -24,11 +32,17 @@ namespace eIDApplicationManageGUI {
 	{
 	public:
 
-		bool g_bDeviceConnected;
+		bool g_bPcscDeviceConnected;
+		bool g_bHidDeviceConnected;
+		HKEY g_hRegProviders;
+		String^ lpstrRegImagePath;
 
 		MainForm(void)
 		{
-			g_bDeviceConnected = false;
+			g_bPcscDeviceConnected = false;
+			g_bHidDeviceConnected = false;
+			g_hRegProviders = NULL;
+			lpstrRegImagePath = "";
 
 			InitializeComponent();
 			//
@@ -145,7 +159,7 @@ namespace eIDApplicationManageGUI {
 						 pReadHandle = (PHANDLE)malloc(sizeof(HANDLE));
 						 if(bInitWriteHandle(detailData, pWriteHandle) && bInitReadHandle(detailData, pReadHandle)){	 
 							 MessageBox::Show("查找USB设备成功!\r\n");
-							 g_bDeviceConnected = true;
+							 g_bHidDeviceConnected = true;
 							 //初始化Write句柄成功!\r\n初始化Read句柄成功!\r\n
 //							 this->Hide();
 //							this->Owner->Show();
@@ -157,12 +171,56 @@ namespace eIDApplicationManageGUI {
 						 MessageBox::Show("找不到指定USB设备!\r\n请检查是否插入USB设备！\r\n");
 					 }
 				 }else if(comboBox1 -> SelectedItem == "eID Smart Card Reader PCSC"){
-					g_bDeviceConnected = true;
+					 bGetCspRegisterInfo(lpstrRegImagePath);
+					 g_bPcscDeviceConnected = true;
 				 }
-				 if(g_bDeviceConnected){
-					button1->Enabled = true;
+				 if(g_bHidDeviceConnected){
+					this->button1->Enabled = true;
 					this->button2->Enabled = true;
 				 }
+			 }
+
+			 bool bGetCspRegisterInfo(String^ lpstrImagePath){
+				DWORD dwDisp;
+				DWORD dwStatus;
+				HRESULT hReturnStatus = NO_ERROR;
+				HKEY hRegHandle;
+
+				bool bRet = false;
+
+				WCHAR buf[64] = {'\0'};
+				DWORD bufSize = sizeof(buf);
+
+				dwStatus = RegCreateKeyEx(
+                    HKEY_LOCAL_MACHINE,
+                    TEXT("SOFTWARE\\Microsoft\\Cryptography\\Defaults\\Provider"),
+                    0,
+                    TEXT(CSP_REGISTER_NAME),
+                    REG_OPTION_NON_VOLATILE,
+                    KEY_ALL_ACCESS,
+                    NULL,
+                    &hRegHandle,
+                    &dwDisp);
+				if (ERROR_SUCCESS == dwStatus)
+				{
+					dwStatus = RegGetValue(
+						hRegHandle,
+						TEXT("SOFTWARE\\Microsoft\\Cryptography\\Defaults\\Provider"),
+						TEXT(CSP_REGISTER_NAME),
+						RRF_RT_REG_SZ,
+						NULL,
+						(LPBYTE)buf,
+						&bufSize);
+					if (ERROR_SUCCESS == dwStatus){
+						bRet = true;
+					}
+					
+					
+				}
+				else{
+					MessageBox::Show("Plesae Install HED CSP!");
+				}
+				return bRet;
 			 }
 	};
 }
