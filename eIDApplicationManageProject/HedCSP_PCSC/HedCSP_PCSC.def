@@ -1,0 +1,10 @@
+; HedCSP_PCSC.def : 声明 DLL 的模块参数。
+
+LIBRARY      "HedCSP_PCSC"
+
+EXPORTS
+    ; 此处可以是显式导出
+	DllCanUnloadNow     PRIVATE
+	DllGetClassObject   PRIVATE
+	DllRegisterServer   PRIVATE
+	DllUnregisterServer PRIVATE

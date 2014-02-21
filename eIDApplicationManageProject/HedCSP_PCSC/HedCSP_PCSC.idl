@@ -1,0 +1,10 @@
+// HedCSP_PCSC.idl : HedCSP_PCSC.dll 的类型库源
+// 此文件将由 MIDL 编译器处理以产生
+// 类型库 (HedCSP_PCSC.tlb)。
+
+[ uuid(86145C67-13CC-41F5-B3E7-A821D293D48C), version(1.0) ]
+library HedCSP_PCSC
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+};
