@@ -37,9 +37,6 @@ GetInstanceHandle(
 }
 
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
 
 //
 //TODO: If this DLL is dynamically linked against the MFC DLLs,
