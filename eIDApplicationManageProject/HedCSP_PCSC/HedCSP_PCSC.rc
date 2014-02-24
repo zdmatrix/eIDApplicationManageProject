@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 中文(中华人民共和国) resources
+// Chinese (P.R.C.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 #ifdef _WIN32
@@ -102,8 +102,8 @@ END
 // RCDATA
 //
 
-IDR_RCDATA1             RCDATA                  "HedCSP_PCSC.sig"
-#endif    // 中文(中华人民共和国) resources
+666                     RCDATA                  "HedCSP_PCSC.sig"
+#endif    // Chinese (P.R.C.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

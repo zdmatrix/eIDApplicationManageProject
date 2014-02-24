@@ -19,7 +19,7 @@
 
 static const TCHAR
     l_szProviderName[]
-        = TEXT("HED_RSA_Cryptographic_Service_Provider_V1.0");
+        = TEXT("HED_PCSC_Cryptographic_Service_Provider_V1.0");
 static const DWORD
     l_dwCspType
 // ?vendor?  Change this to match your CSP capabilities

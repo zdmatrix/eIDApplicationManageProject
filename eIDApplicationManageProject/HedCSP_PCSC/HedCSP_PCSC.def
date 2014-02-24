@@ -4,6 +4,30 @@ LIBRARY      "HedCSP_PCSC"
 
 EXPORTS
     ; 此处可以是显式导出
+    CPAcquireContext	@110
+    CPReleaseContext	@111
+    CPGenKey			@112
+    CPDeriveKey			@113
+    CPDestroyKey		@114
+    CPSetKeyParam		@115
+    CPGetKeyParam		@116
+    CPExportKey			@117
+    CPImportKey			@118
+    CPEncrypt			@119
+    CPDecrypt			@120
+    CPCreateHash		@121
+    CPHashData			@122
+    CPHashSessionKey	@123
+    CPDestroyHash		@124
+    CPSignHash			@125
+    CPVerifySignature	@126
+    CPGenRandom			@127
+    CPGetUserKey		@128
+    CPSetProvParam		@129
+    CPGetProvParam		@130
+    CPSetHashParam		@131
+    CPGetHashParam		@132
+    
 	DllCanUnloadNow     PRIVATE
 	DllGetClassObject   PRIVATE
 	DllRegisterServer   PRIVATE
