@@ -3,13 +3,27 @@
 #include <windows.h>
 #include <iostream>
 #include <string>
+#include <tchar.h>
+//#include <atlstr.h>
 
 #include "shlwapi.h"
 
 //#include "define.h"
 #include "USBHidDll.h"
+#include "cspdk.h"
 
-#define CSP_REGISTER_NAME "HED_RSA_Cryptographic_Service_Provider_V1.0"
+#define PCSC_REGISTER_NAME "SOFTWARE\\Microsoft\\Cryptography\\Defaults\\Provider\\HED_PCSC_Cryptographic_Service_Provider_V1.0"
+#define HID_REGISTER_NAME "SOFTWARE\\Microsoft\\Cryptography\\Defaults\\Provider\\HED_HID_Cryptographic_Service_Provider_V1.0"
+#define PCSC_DEVICE_ID  0x01
+#define HID_DEVICE_ID   0x02
+
+typedef BOOL(WINAPI *pCPAcquireContext)(
+	OUT HCRYPTPROV *phProv,
+    IN  LPCSTR szContainer,
+    IN  DWORD dwFlags,
+    IN  PVTableProvStruc pVTable);
+
+
 namespace eIDApplicationManageGUI {
 
 	using namespace System;
@@ -19,6 +33,7 @@ namespace eIDApplicationManageGUI {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+	
 	/// <summary>
 	/// Form1 摘要
 	///
@@ -36,6 +51,9 @@ namespace eIDApplicationManageGUI {
 		bool g_bHidDeviceConnected;
 		HKEY g_hRegProviders;
 		String^ lpstrRegImagePath;
+		String^ lpsImagePath;
+		HINSTANCE hDLL;
+		DWORD dwDeviceType;
 
 		MainForm(void)
 		{
@@ -43,6 +61,7 @@ namespace eIDApplicationManageGUI {
 			g_bHidDeviceConnected = false;
 			g_hRegProviders = NULL;
 			lpstrRegImagePath = "";
+			lpsImagePath = "";
 
 			InitializeComponent();
 			//
@@ -153,7 +172,8 @@ namespace eIDApplicationManageGUI {
 				 PSP_DEVICE_INTERFACE_DETAIL_DATA detailData = NULL;
 				 
 				 if(comboBox1 -> SelectedItem == "eID Adaptor USB-HID"){
-					if((detailData = bOpenHidDevice(0x1677, 0x0340)) != NULL){
+					dwDeviceType = HID_DEVICE_ID;
+					 if((detailData = bOpenHidDevice(0x1677, 0x0340)) != NULL){
 						 
 						 pWriteHandle = (PHANDLE)malloc(sizeof(HANDLE));
 						 pReadHandle = (PHANDLE)malloc(sizeof(HANDLE));
@@ -171,57 +191,100 @@ namespace eIDApplicationManageGUI {
 						 MessageBox::Show("找不到指定USB设备!\r\n请检查是否插入USB设备！\r\n");
 					 }
 				 }else if(comboBox1 -> SelectedItem == "eID Smart Card Reader PCSC"){
-					 bGetCspRegisterInfo(lpstrRegImagePath);
-					 g_bPcscDeviceConnected = true;
+					 dwDeviceType = PCSC_DEVICE_ID;
+					 hDLL = bGetCspRegisterInfo(dwDeviceType);
+					 
+					 if(hDLL != NULL){	
+						g_bPcscDeviceConnected = true;
+					 }else{
+						g_bPcscDeviceConnected = false;
+					 }
 				 }
-				 if(g_bHidDeviceConnected){
+				 if(g_bPcscDeviceConnected){
 					this->button1->Enabled = true;
 					this->button2->Enabled = true;
 				 }
 			 }
 
-			 bool bGetCspRegisterInfo(String^ lpstrImagePath){
-				DWORD dwDisp;
+	HINSTANCE  bGetCspRegisterInfo(DWORD type){
+				
 				DWORD dwStatus;
-				HRESULT hReturnStatus = NO_ERROR;
+				
 				HKEY hRegHandle;
 
-				bool bRet = false;
+				DWORD dwType = REG_SZ;
 
-				WCHAR buf[64] = {'\0'};
+				CHAR buf[256] = {'\0'};
 				DWORD bufSize = sizeof(buf);
+				LPCSTR lpsRegName;
+				
+				switch (type){
+					case PCSC_DEVICE_ID:
+						lpsRegName = PCSC_REGISTER_NAME;
+						break;
+					case HID_DEVICE_ID:
+						lpsRegName = HID_REGISTER_NAME;
+						break;
+					default:
+						lpsRegName = "";
+						break;
+				};
 
-				dwStatus = RegCreateKeyEx(
-                    HKEY_LOCAL_MACHINE,
-                    TEXT("SOFTWARE\\Microsoft\\Cryptography\\Defaults\\Provider"),
-                    0,
-                    TEXT(CSP_REGISTER_NAME),
-                    REG_OPTION_NON_VOLATILE,
-                    KEY_ALL_ACCESS,
-                    NULL,
-                    &hRegHandle,
-                    &dwDisp);
+				dwStatus = RegOpenKeyEx(
+					HKEY_LOCAL_MACHINE,
+//					TEXT(PCSC_REGISTER_NAME),
+					TEXT(lpsRegName),
+					0,
+					KEY_READ,
+					&hRegHandle);
 				if (ERROR_SUCCESS == dwStatus)
 				{
-					dwStatus = RegGetValue(
+
+					dwStatus = RegQueryValueEx(
 						hRegHandle,
-						TEXT("SOFTWARE\\Microsoft\\Cryptography\\Defaults\\Provider"),
-						TEXT(CSP_REGISTER_NAME),
-						RRF_RT_REG_SZ,
+						TEXT("Image Path"),
 						NULL,
+						&dwType,
 						(LPBYTE)buf,
 						&bufSize);
+
 					if (ERROR_SUCCESS == dwStatus){
-						bRet = true;
-					}
-					
-					
+						hDLL = LoadLibrary(buf);
+						
+
+//						if(NULL != hDLL){
+//							bRet = true;
+/*
+							pCPAcquireContext cPAcquireContext;
+							cPAcquireContext = (pCPAcquireContext)GetProcAddress(hDLL, "CPAcquireContext");
+							if(NULL == cPAcquireContext){
+								bRet = false;
+								MessageBox::Show("Find function \"CPAcquireContext\" failed!");
+							}else{
+								cPAcquireContext(NULL, NULL, NULL, NULL);
+								bRet = true;
+							}
+*/
+//						}else{
+//							bRet = false;
+//						}
+						
+					}else{
+						hDLL = NULL;
+					}	
 				}
 				else{
+					hDLL = NULL;
 					MessageBox::Show("Plesae Install HED CSP!");
+					
 				}
-				return bRet;
+				RegCloseKey(hRegHandle);
+				return hDLL;;
 			 }
+
+			 
 	};
+
+	
 }
 

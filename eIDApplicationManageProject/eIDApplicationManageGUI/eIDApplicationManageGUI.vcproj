@@ -24,6 +24,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
+			UseOfMFC="2"
 			CharacterSet="2"
 			ManagedExtensions="1"
 			>
@@ -234,7 +235,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\ExternAPI.h"
+				RelativePath=".\cspdk.h"
 				>
 			</File>
 			<File
