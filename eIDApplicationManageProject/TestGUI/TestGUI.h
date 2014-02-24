@@ -152,10 +152,12 @@ namespace TestGUI {
 //			 private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {}
 			 
 	private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {
+				 HANDLE uKey;
+				 int num = 0x37;
+/*
 				 HCRYPTPROV hProv;
     HCRYPTKEY hKey;
     DWORD dwParam;
-//    BYTE *pbData;
     DWORD dwFlags;
 
 	PVTableProvStruc pVTable;
@@ -167,15 +169,9 @@ namespace TestGUI {
 	hProv = (HCRYPTPROV)malloc(sizeof(HCRYPTPROV));
 	hKey = (HCRYPTKEY)malloc(sizeof(HCRYPTKEY));
 	dwParam = KP_KEYLEN;
-//	pbData = (BYTE*)malloc(sizeof(BYTE));
 	dwFlags = 0x31;
 	pVTable = (PVTableProvStruc)malloc(sizeof(PVTableProvStruc));
 
-	
-
-	
-//	CPGetKeyParam1(hProv, hKey, dwParam, pbDate, dwret, dwFlags);
-//	CPSetKeyParam1(hProv, hKey, KP_SALT, pbDate, dwFlags);
 	if(!CPAcquireContext1(
 		&hProv, 
 		NULL, 
@@ -189,9 +185,11 @@ namespace TestGUI {
 		CRYPT_NEWKEYSET,
 		NULL
 		);
-//		printf("Hello World!\n");
+
 	}
-			 }
+*/
+				 CPTestDisplayNum1(uKey, num);
+	}
 			 
 private: System::Void btnCallCspToSign_Click(System::Object^  sender, System::EventArgs^  e) {
 /*
