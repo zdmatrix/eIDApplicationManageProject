@@ -3400,3 +3400,12 @@ CPDuplicateKey1(
     return TRUE;
 }
 
+BOOL WINAPI
+CPTestDisplayNum1(
+	HANDLE hKey,
+	int num)
+{
+	bool ret = false;
+	UKeyTestDisplayNum(hKey, num);
+	return ret;
+}

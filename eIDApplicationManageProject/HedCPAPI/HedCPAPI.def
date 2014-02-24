@@ -31,6 +31,8 @@ CPAcquireContext1	@220
     CPGetHashParam1		@242
 	CPDuplicateHash1	@243
 	CPDuplicateKey1		@244
+	CPTestDisplayNum1	@245
+	
 	DllCanUnloadNow     PRIVATE
 	DllGetClassObject   PRIVATE
 	DllRegisterServer   PRIVATE

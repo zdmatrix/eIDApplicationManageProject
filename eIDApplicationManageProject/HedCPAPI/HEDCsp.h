@@ -714,6 +714,12 @@ CPDuplicateKey1(
     IN  DWORD dwFlags,
     OUT HCRYPTKEY *phKey);
 
+
+extern BOOL WINAPI
+CPTestDisplayNum1(
+    HANDLE hKey,
+	int num);
+
 #ifdef __cplusplus
 }
 #endif
