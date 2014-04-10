@@ -17,6 +17,35 @@
 #define new DEBUG_NEW
 #endif
 
+#ifdef SCARD_CSP
+static const TCHAR
+    l_szCardName[]
+        = TEXT("?vendor? <Add your Smart Card Friendly Name Here>");
+static const GUID   // Optional
+    l_guidPrimaryProv
+    //?vendor? Add your Primary Provider GUID here 
+        = { /* 00000000-0000-0000-0000-000000000000 */
+            0x00000000,
+            0x0000,
+            0x0000,
+            { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
+          };
+static const BYTE
+    l_rgbATR[]     = { /* ?vendor? Add your ATR here */ 0x3b, 0x00 },
+    l_rgbATRMask[] = { /* ?vendor? Add your ATR Mask here */ 0xff, 0xff };
+#endif
+
+
+
+#ifdef SCARD_CSP
+typedef DWORD
+(*LPSETCARDTYPEPROVIDERNAME)(
+    IN SCARDCONTEXT hContext,
+    IN LPCTSTR szCardName,
+    IN DWORD dwProviderId,
+    IN LPCTSTR szProvider);
+#endif
+
 static const TCHAR
     l_szProviderName[]
         = TEXT("HED_PCSC_Cryptographic_Service_Provider_V1.0");
