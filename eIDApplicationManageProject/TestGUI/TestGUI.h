@@ -140,6 +140,15 @@ namespace TestGUI {
 				 }
 			 }
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+				 BYTE data[255] = {0};
+				 int len;
+				 if(UKeyGetContainerName(NULL, data, &len)){
+					MessageBox::Show("GetContainerName done!");
+				 }else{
+					MessageBox::Show("GetContainerName failed!");
+				 }
+
+/*
 				 HANDLE hReader;
 				 DWORD ret = 0;
 				 ret = UKeyOpen(&hReader);
@@ -148,7 +157,8 @@ namespace TestGUI {
 				 }else{
 					 MessageBox::Show("OpenPort failed!");
 				 }
-			 }
+*/
+			}
 //			 private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {}
 			 
 	private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {
