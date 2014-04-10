@@ -942,24 +942,8 @@ BOOL EXTERNAPI_API UKeyGetContainer(HANDLE hUKey,BYTE *pbContainer,BYTE *pstrCar
 	unsigned char respData[1000] = {0};
 	short count = 0;
 	BOOL ret = UKeyGetContainerData(hUKey, respData, &respDataLen, &count);
-//	if (!ret)
-//		return FALSE;
-/*
-	respData[0] = 0x00;
-	respData[1] = 0x13;
-	respData[2] = 0x00;
-	respData[3] = 0x4f;
-	respData[4] = 0x00;
-	respData[5] = 0x02;
-	respData[6] = 0x02;
-	respData[7] = 0x00;
-	respData[8] = 0x00;
-	respData[9] = 0x00;
-	respData[10] = 0x00;
-	respData[11] = 0x00;
-	respData[12] = 0x00;
-*/
-	count = 0x0d;
+	if (!ret)
+		return FALSE;
 	CardContainer *pContainer = (CardContainer *)respData;
 	int i = 0;
 	while (i < count) 
@@ -1834,7 +1818,17 @@ BOOL EXTERNAPI_API UKeyGetInfo(HANDLE hUKey,BYTE *Info, int *InfoLen)
 
 BOOL EXTERNAPI_API UKeyGetContainerName(HANDLE hUKey,BYTE *CName, int *CNameLen)
 {
-	unsigned char apduData[255];// = ;
+//	unsigned char apduData[255];// = ;
+	unsigned char apduData[255] = {'H', 'E', 'D', '_', 'P', 'C', 'S', 'C', '_', 'C', 'r', 'y', 'p', 't', 
+		'o', 'g', 'r', 'a', 'p', 'h', 'i', 'c', '_', 'S', 'e', 'r', 'v', 'i', 'c', 'e', '_',
+		'P', 'r', 'o', 'v', 'i', 'd', 'e', 'r', '_', 'V', '1', '.', '0', '/0'};
+	*CNameLen = 0x2C;
+	if (*CNameLen > 0)
+		memcpy(CName, &apduData[0], *CNameLen);
+	else
+		CName[0] = 0;
+	return TRUE;	
+/*
 	BYTE BinaryFile[2] = {0x00, 0xBF};
 	
 	memset(apduData, 0, sizeof(apduData));
@@ -1850,13 +1844,7 @@ BOOL EXTERNAPI_API UKeyGetContainerName(HANDLE hUKey,BYTE *CName, int *CNameLen)
 	short srAPDULen = 5;
 	short respDataLen = 0;
 	unsigned char respData[255];
-/*
-	if (!SelectADF(hUKey))
-	{
-		DebugMessage("[UKEY] UKeyGetContainerName SelectADF ERROR\n");
-		return FALSE;
-	}
-*/
+
 	if (!SelectFile(hUKey, BinaryFile))
 	{
 		DebugMessage("[UKEY] UKeyGetContainerName SelectADF ERROR\n");
@@ -1871,7 +1859,10 @@ BOOL EXTERNAPI_API UKeyGetContainerName(HANDLE hUKey,BYTE *CName, int *CNameLen)
 	else
 		CName[0] = 0;
 	return TRUE;	
+*/
 }
+
+
 BOOL EXTERNAPI_API UKeySetContainerName(HANDLE hUKey,BYTE *CName, int CNameLen)
 {
 	unsigned char apduData[255];// = ;
