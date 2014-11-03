@@ -1,3 +1,4 @@
+//#define USBHIDDLL_EXPORTS
 // 下列 ifdef 块是创建使从 DLL 导出更简单的
 // 宏的标准方法。此 DLL 中的所有文件都是用命令行上定义的 USBHIDDLL_EXPORTS
 // 符号编译的。在使用此 DLL 的
@@ -9,6 +10,16 @@
 #else
 #define USBHIDDLL_API __declspec(dllimport)
 #endif
+
+extern "C" {    // this MUST be included
+
+	// These files are in the Windows DDK
+	//#include <initguid.h>
+#include "hidsdi.h"
+#include <setupapi.h>
+
+}
+
 
 USBHIDDLL_API			bool bInitWriteHandle(PSP_DEVICE_INTERFACE_DETAIL_DATA detailData, PHANDLE pWriteHandle);
 USBHIDDLL_API			 bool bInitReadHandle(PSP_DEVICE_INTERFACE_DETAIL_DATA detailData, PHANDLE pReadHandle);

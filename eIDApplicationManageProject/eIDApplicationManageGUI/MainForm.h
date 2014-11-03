@@ -53,8 +53,22 @@ namespace eIDApplicationManageGUI {
 		String^ lpstrRegImagePath;
 		String^ lpsImagePath;
 		HINSTANCE hDLL;
+		DWORD dwDeviceType;
+
+		MainForm(void)
+		{
+			g_bPcscDeviceConnected = false;
+			g_bHidDeviceConnected = false;
+			g_hRegProviders = NULL;
+			lpstrRegImagePath = "";
+			lpsImagePath = "";
+
+			InitializeComponent();
+			//
+			//TODO: 在此处添加构造函数代码
+			//
+		}
 	private: System::Windows::Forms::TabControl^  tabControl1;
-	public: 
 	private: System::Windows::Forms::TabPage^  tabPage1;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::TextBox^  textCardTestSW;
@@ -118,21 +132,8 @@ namespace eIDApplicationManageGUI {
 	private: System::Windows::Forms::Button^  btnGenerateChallangeCode;
 	private: System::Windows::Forms::Label^  label27;
 	private: System::Windows::Forms::Label^  label26;
-			 DWORD dwDeviceType;
-
-		MainForm(void)
-		{
-			g_bPcscDeviceConnected = false;
-			g_bHidDeviceConnected = false;
-			g_hRegProviders = NULL;
-			lpstrRegImagePath = "";
-			lpsImagePath = "";
-
-			InitializeComponent();
-			//
-			//TODO: 在此处添加构造函数代码
-			//
-		}
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::ComboBox^  comboBox1;
 
 	protected:
 		/// <summary>
@@ -145,9 +146,9 @@ namespace eIDApplicationManageGUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^  label1;
+	
 	protected: 
-	private: System::Windows::Forms::ComboBox^  comboBox1;
+	
 
 
 
@@ -536,7 +537,7 @@ namespace eIDApplicationManageGUI {
 			this->btnCharge->TabIndex = 10;
 			this->btnCharge->Text = L"充值";
 			this->btnCharge->UseVisualStyleBackColor = true;
-			this->btnCharge->Click += gcnew System::EventHandler(this, &MainForm::btnCharge_Click);
+//			this->btnCharge->Click += gcnew System::EventHandler(this, &MainForm::btnCharge_Click);
 			// 
 			// textCharge
 			// 
@@ -1019,7 +1020,7 @@ namespace eIDApplicationManageGUI {
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"eID应用管理程序";
-			this->Load += gcnew System::EventHandler(this, &MainForm::Form1_Load);
+			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			this->tabPage1->PerformLayout();
@@ -1039,7 +1040,7 @@ namespace eIDApplicationManageGUI {
 
 		}
 #pragma endregion
-	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
 			 }
 	private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 				 PHANDLE pWriteHandle;
@@ -1048,8 +1049,8 @@ namespace eIDApplicationManageGUI {
 				 
 				 if(comboBox1 -> SelectedItem == "eID Adaptor USB-HID"){
 					dwDeviceType = HID_DEVICE_ID;
-					 if((detailData = bOpenHidDevice(0x1677, 0x0340)) != NULL){
-						 
+//					 if((detailData = bOpenHidDevice(0x1677, 0x0340)) != NULL){
+					 if((detailData = bOpenHidDevice(0x0400, 0x345a)) != NULL){	 
 						 pWriteHandle = (PHANDLE)malloc(sizeof(HANDLE));
 						 pReadHandle = (PHANDLE)malloc(sizeof(HANDLE));
 						 if(bInitWriteHandle(detailData, pWriteHandle) && bInitReadHandle(detailData, pReadHandle)){	 
@@ -1076,8 +1077,8 @@ namespace eIDApplicationManageGUI {
 					 }
 				 }
 				 if(g_bPcscDeviceConnected){
-					this->button1->Enabled = true;
-					this->button2->Enabled = true;
+//					this->button1->Enabled = true;
+//					this->button2->Enabled = true;
 				 }
 			 }
 

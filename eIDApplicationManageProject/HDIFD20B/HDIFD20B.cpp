@@ -551,8 +551,8 @@ HDIFD20B_API unsigned short CCONV HD_OpenPort(short ivPortNo,unsigned long ivBau
 //		if (memcmp((char *)ReaderNameTmp, "HED VIRTUAL_CARD_READER", 23) != 0)
 //		if(slen != 0x34)
 //		if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SDI010 Smart Card Reader 0", 0x30) != 0)
-//		if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SDI010 Contactless Reader 0", 0x31) != 0)
-		if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SCR33x USB Smart Card Reader 0", 0x34) != 0)
+		if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SDI011G Contactless Reader 0", 0x33) != 0)
+//		if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SCR33x USB Smart Card Reader 0", 0x34) != 0)
 		
 		{
 			while (StringLen < ResponseLength) 
@@ -561,14 +561,14 @@ HDIFD20B_API unsigned short CCONV HD_OpenPort(short ivPortNo,unsigned long ivBau
 				StringLen = StringLen+1;
 				strcpy((char*)ReaderNameTmp,(char*)ResponseBuffer+StringLen);
 //				if (memcmp((char *)ReaderNameTmp, "HED VIRTUAL_CARD_READER", 23) == 0)
-				if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SCR33x USB Smart Card Reader 0", 0x34) == 0)
+//				if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SCR33x USB Smart Card Reader 0", 0x34) == 0)
 //				if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SDI010 Smart Card Reader 0", 0x30) == 0)
-//				if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SDI010 Contactless Reader 0", 0x31) == 0)
+				if (memcmp((char *)ReaderNameTmp, "SCM Microsystems Inc. SDI011G Contactless Reader 0", 0x33) == 0)
 					break;
 			}
 		}
 		//Î´ÕÒµ½»ª´ó¶Á¿¨Æ÷
-//		if (StringLen >= ResponseLength)
+		
 //			memset(ReaderNameTmp, 0, sizeof(ReaderNameTmp));
 
 // 		for(int i=0; i<1; i++)
@@ -665,7 +665,13 @@ HDIFD20B_API unsigned short CCONV HD_ResetCard( HANDLE devNo, unsigned char	*srA
 	BYTE  AtrBuffer[32];
 	DWORD AtrLen ;
 
-	ret = SCardStatus((SCARDHANDLE)devNo, NULL, NULL, &dwCardState, &ActiveProtocol, NULL, &AtrLen);
+//	LPTSTR cardname;
+	char cardname[256];
+	DWORD dw = 0;
+	BYTE buf[32];
+
+//	ret = SCardStatus((SCARDHANDLE)devNo, NULL, NULL, &dwCardState, &ActiveProtocol, NULL, &AtrLen);
+	ret = SCardStatus((SCARDHANDLE)devNo, cardname, &dw, &dwCardState, &ActiveProtocol, buf, &AtrLen);
 	if (ret != SCARD_S_SUCCESS)
 	{
 //		GetErrorCode(ret);

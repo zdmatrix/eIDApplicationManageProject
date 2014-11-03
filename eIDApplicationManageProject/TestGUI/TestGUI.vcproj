@@ -62,8 +62,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HDIFD20B.lib ExternAPI.lib HedCPAPI.lib"
+				AdditionalDependencies="HDIFD20B.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;D:\项目工程\eID载体（可视卡）\代码\Windows\client app\externlib&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"

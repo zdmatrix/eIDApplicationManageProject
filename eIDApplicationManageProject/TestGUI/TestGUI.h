@@ -2,10 +2,12 @@
 
 #include "HDIFD20B.h"
 #include "ExternAPI.h"
-
 #include "HEDCsp.h"
 
-//#include "cspdk.h"
+#include "shlwapi.h"
+
+#include "USBHidDll.h"
+#include "cspdk.h"
 
 namespace TestGUI {
 
@@ -51,6 +53,8 @@ namespace TestGUI {
 	private: System::Windows::Forms::Button^  btnCallExternAPI;
 	private: System::Windows::Forms::Button^  btnCallHedCsp;
 	private: System::Windows::Forms::Button^  btnCallCspToSign;
+	private: System::Windows::Forms::Button^  btnCallHID;
+
 
 	protected: 
 
@@ -71,6 +75,7 @@ namespace TestGUI {
 			this->btnCallExternAPI = (gcnew System::Windows::Forms::Button());
 			this->btnCallHedCsp = (gcnew System::Windows::Forms::Button());
 			this->btnCallCspToSign = (gcnew System::Windows::Forms::Button());
+			this->btnCallHID = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// btnCallHDIFD20B
@@ -91,7 +96,7 @@ namespace TestGUI {
 			this->btnCallExternAPI->TabIndex = 1;
 			this->btnCallExternAPI->Text = L"调用ExternAPI.dll";
 			this->btnCallExternAPI->UseVisualStyleBackColor = true;
-			this->btnCallExternAPI->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+//			this->btnCallExternAPI->Click += gcnew System::EventHandler(this, &Form1::btnCallExternAPI_Click);
 			// 
 			// btnCallHedCsp
 			// 
@@ -101,7 +106,7 @@ namespace TestGUI {
 			this->btnCallHedCsp->TabIndex = 2;
 			this->btnCallHedCsp->Text = L"调用HedCPAPI.dll";
 			this->btnCallHedCsp->UseVisualStyleBackColor = true;
-			this->btnCallHedCsp->Click += gcnew System::EventHandler(this, &Form1::btnCallHedCsp_Click);
+//			this->btnCallHedCsp->Click += gcnew System::EventHandler(this, &Form1::btnCallHedCsp_Click);
 			// 
 			// btnCallCspToSign
 			// 
@@ -111,13 +116,24 @@ namespace TestGUI {
 			this->btnCallCspToSign->TabIndex = 3;
 			this->btnCallCspToSign->Text = L"调用CspToSign.dll";
 			this->btnCallCspToSign->UseVisualStyleBackColor = true;
-			this->btnCallCspToSign->Click += gcnew System::EventHandler(this, &Form1::btnCallCspToSign_Click);
+//			this->btnCallCspToSign->Click += gcnew System::EventHandler(this, &Form1::btnCallCspToSign_Click);
+			// 
+			// btnCallHID
+			// 
+			this->btnCallHID->Location = System::Drawing::Point(13, 133);
+			this->btnCallHID->Name = L"btnCallHID";
+			this->btnCallHID->Size = System::Drawing::Size(133, 23);
+			this->btnCallHID->TabIndex = 4;
+			this->btnCallHID->Text = L"调用HID";
+			this->btnCallHID->UseVisualStyleBackColor = true;
+//			this->btnCallHID->Click += gcnew System::EventHandler(this, &Form1::btnCallHID_Click);
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(292, 266);
+			this->Controls->Add(this->btnCallHID);
 			this->Controls->Add(this->btnCallCspToSign);
 			this->Controls->Add(this->btnCallHedCsp);
 			this->Controls->Add(this->btnCallExternAPI);
@@ -132,14 +148,22 @@ namespace TestGUI {
 	private: System::Void btnCallHDIFD20B_Click(System::Object^  sender, System::EventArgs^  e) {
 				 HANDLE hReader;
 				 DWORD ret = 0;
+
+				 BYTE res[1024] = {0};
+				 short retlen = 0;
 				 ret = HD_OpenPort(21, 9600, 8, &hReader);
 				 if(ret == 0x9000){
+					 BYTE cmd[11] = {0x80, 0xD1, 0x00, 0x00, 0x06, 0x0C, 0x60, 0x00, 0x01, 0x00, 0x01};
+					 ret = HD_ApduT0(hReader, cmd, 11, (BYTE *)res, &retlen, 0);
+//					 ret = HD_ProbeCard(hReader, 0);
+//					 HD_ResetCard(hReader, NULL, NULL, 0);
 					 MessageBox::Show("OpenPort done!");
 				 }else{
 					 MessageBox::Show("OpenPort failed!");
 				 }
 			 }
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+			 /*
+	private: System::Void btnCallExternAPI_Click(System::Object^  sender, System::EventArgs^  e) {
 				 BYTE data[255] = {0};
 				 int len;
 				 if(UKeyGetContainerName(NULL, data, &len)){
@@ -148,23 +172,14 @@ namespace TestGUI {
 					MessageBox::Show("GetContainerName failed!");
 				 }
 
-/*
-				 HANDLE hReader;
-				 DWORD ret = 0;
-				 ret = UKeyOpen(&hReader);
-				 if(ret){
-					 MessageBox::Show("OpenPort done!");
-				 }else{
-					 MessageBox::Show("OpenPort failed!");
-				 }
-*/
+
 			}
 //			 private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {}
 			 
 	private: System::Void btnCallHedCsp_Click(System::Object^  sender, System::EventArgs^  e) {
 				 HANDLE uKey;
 				 int num = 0x37;
-/*
+
 				 HCRYPTPROV hProv;
     HCRYPTKEY hKey;
     DWORD dwParam;
@@ -197,12 +212,12 @@ namespace TestGUI {
 		);
 
 	}
-*/
+
 				 CPTestDisplayNum1(uKey, num);
 	}
 			 
 private: System::Void btnCallCspToSign_Click(System::Object^  sender, System::EventArgs^  e) {
-/*
+
 			 HCRYPTPROV hProv;
 
 			 CPAcquireContext(
@@ -211,8 +226,22 @@ private: System::Void btnCallCspToSign_Click(System::Object^  sender, System::Ev
 				0,
 				NULL);
 			 MessageBox::Show("done!");
-*/
+
 		 }
+private: System::Void btnCallHID_Click(System::Object^  sender, System::EventArgs^  e) {
+			 PHANDLE pWriteHandle;
+			 PHANDLE pReadHandle;
+			 PSP_DEVICE_INTERFACE_DETAIL_DATA detailData = NULL;
+
+			 if((detailData = bOpenHidDevice(0x0400, 0x345a)) != NULL){	 
+				 pWriteHandle = (PHANDLE)malloc(sizeof(HANDLE));
+				 pReadHandle = (PHANDLE)malloc(sizeof(HANDLE));
+				 if(bInitWriteHandle(detailData, pWriteHandle) && bInitReadHandle(detailData, pReadHandle)){	 
+					 MessageBox::Show("查找USB设备成功!\r\n");
+					}
+				}
+		 }
+		 */
 };
 }
 

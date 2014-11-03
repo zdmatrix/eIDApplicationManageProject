@@ -62,6 +62,7 @@ USBHIDDLL_API			 bool bInitReadHandle(PSP_DEVICE_INTERFACE_DETAIL_DATA detailDat
 				 if(*pReadHandle != INVALID_HANDLE_VALUE){
 					 return true;
 				 }else{
+					 DWORD err = GetLastError();
 					 return false;
 				 }
 			 }

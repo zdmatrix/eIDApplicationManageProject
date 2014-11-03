@@ -103,6 +103,13 @@ CPAcquireContext1(
     IN  DWORD dwFlags,
     IN  PVTableProvStruc pVTable)
 {
+	const LPCSTR strPersonRSA1024 = "Person_RSA1024";
+	const LPCSTR streIDLoad = "eID_Load";
+	const LPCSTR streIDMICXRSA2048 = "eID_MICX_RSA2048_Pubkey";
+	const LPCSTR strInternal = "Internal";
+	const LPCSTR strPersonSM2 = "Person_SM2";
+	const LPCSTR streIDMICXSM2 = "eID_MICX_SM2_Pubkey";
+	
 	KeyImportFlag = FALSE;
 	BOOL retVal=FALSE;
 	//WORD wContextCount;
@@ -430,7 +437,7 @@ CPReleaseContext1(
  */
 //还未完成.dwFlags还没考虑
 BOOL WINAPI
-CPGenKey1(
+CPGenKey1(													 
     IN  HCRYPTPROV hProv,
     IN  ALG_ID Algid,
     IN  DWORD dwFlags,
